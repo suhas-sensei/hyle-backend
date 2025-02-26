@@ -9,14 +9,16 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export function Input({ label, suffix, error, className, ...props }: InputProps) {
   return (
     <div className="space-y-1">
-      <label className="block text-sm font-medium text-zinc-200">{label}</label>
+      <div className="text-[1.01rem] font-medium tracking-[0.4px] text-gray-600">
+        {label}
+      </div>
       <div className="relative">
         <input
-          className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-zinc-100 placeholder:text-zinc-500 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
+          className="w-full pr-24 border-[rgba(255,255,255,0.3)] focus:border-[rgba(255,255,255,0.5)] placeholder-gray-600 focus:text-gray-700 transition-colors duration-200 rounded-md bg-[#d8d8d5] px-3 py-2 text-gray-600"
           {...props}
         />
         {suffix && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500">
+          <span className="absolute tracking-[0.3px] right-3 top-1/2 -translate-y-1/2 text-sm opacity-50 text-gray-600">
             {suffix}
           </span>
         )}

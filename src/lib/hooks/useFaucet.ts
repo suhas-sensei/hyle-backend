@@ -1,15 +1,29 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query'
-import { faucet } from '@/lib/api/faucet'
 
-interface UseFaucetOptions
-  extends Omit<
-    UseMutationOptions<unknown, Error, { username: string; token: string }>,
-    'mutationFn'
-  > {}
+interface FaucetParams {
+  username: string;
+  token: string;
+}
 
-export function useFaucet(options?: UseFaucetOptions) {
+export function useFaucet(options: UseMutationOptions<unknown, Error, FaucetParams, unknown>) {
   return useMutation({
-    mutationFn: faucet,
+    mutationFn: async ({ username, token }: FaucetParams) => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/faucet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          username: username + ".hydentity",  // Note the .hydentity suffix here
+          token 
+        }),
+      });
+      
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || 'Failed to process faucet request');
+      }
+      
+      return response.json();
+    },
     ...options,
-  })
+  });
 }

@@ -1,20 +1,23 @@
 import { Faucet } from '@/components/Faucet'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Anton } from "next/font/google";
+
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 const queryClient = new QueryClient()
 
 export default function Home() {
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-zinc-900">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-teal-500 mb-2">Hylé Faucet</h1>
-            <p className="text-zinc-400">Request test tokens for the Hylé network</p>
-          </div>
+      <div className="min-h-screen flex items-center justify-center bg-[url('/images/satelliteBG.jpg')] p-8 animate-[floatSlow_120s_linear_infinite] sm:animate-[floatSlow_150s_linear_infinite] md:animate-[floatSlow_180s_linear_infinite] lg:animate-[floatSlow_210s_linear_infinite]">
+        <div className={`w-full max-w-md p-8 space-y-6 aero-window rounded-[1rem] rounded-tr-[0.7rem] ${anton.className}`}>
+          
           <Faucet />
         </div>
-      </main>
+      </div>
     </QueryClientProvider>
   )
 }
